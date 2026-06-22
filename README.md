@@ -163,7 +163,9 @@ MemoApp
 ## 起動
 #### １．サーバーの実行
 ###### （１）クラスファイル等の配置
-	このアプリでは、コンパイル済みclassファイル、MyBatisのMapper XML、DB接続設定ファイルを WEB-INF/classes に配置します。MyBatisやOracle JDBC Driverなどの外部ライブラリは WEB-INF/lib に配置します。
+	classファイル、MyBatisのMapper XML、DB接続設定ファイルを 
+	WEB-INF/classes に配置します。
+	MyBatisやJDBC Driverなどの外部ライブラリは WEB-INF/lib に配置します。
 ```text
 Tomcat作業フォルダ/
 └─ webapps/
