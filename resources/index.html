@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Memo List</title>
+</head>
+<body>
+    <h1>メモ一覧</h1>
+
+    <ul id="memoList"></ul>
+
+    <script>
+        const memoList = document.getElementById('memoList');
+
+        fetch('memos')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(memos) {
+                memoList.textContent = '';
+
+                for (let i = 0; i < memos.length; i++) {
+                    const memo = memos[i];
+
+                    const li = document.createElement('li');
+                    li.textContent = memo.content;
+                    memoList.appendChild(li);
+                }
+            });
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,9 @@ namespace MemoClient
 {
     public class MemoForm : Form
     {
-        private const string ApiUrl = "http://localhost:8080/memos";
+        private const string DefaultApiUrl = "http://localhost:8080/MemoApp/memos";
+
+        private string ApiUrl;
 
         private static readonly HttpClient client = new HttpClient();
         private readonly JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -27,7 +30,9 @@ namespace MemoClient
 
         public MemoForm()
         {
-            Text = "Memo Client";
+            ApiUrl = LoadApiUrl();
+
+            Text = "Memo Client - " + ApiUrl;
             Width = 760;
             Height = 520;
             StartPosition = FormStartPosition.CenterScreen;
@@ -55,7 +60,29 @@ namespace MemoClient
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void InitializeComponents()
+	private string LoadApiUrl()
+	{
+	    string path = Path.Combine(
+	        AppDomain.CurrentDomain.BaseDirectory,
+	        "api-url.txt"
+	    );
+
+	    if (!File.Exists(path))
+	    {
+	        return DefaultApiUrl;
+	    }
+
+	    string url = File.ReadAllText(path, Encoding.UTF8).Trim();
+
+	    if (url.Length == 0)
+	    {
+	        return DefaultApiUrl;
+	    }
+
+	    return url.TrimEnd('/');
+	}
+        
+	private void InitializeComponents()
         {
             memoGrid = new DataGridView();
             memoGrid.Dock = DockStyle.Fill;

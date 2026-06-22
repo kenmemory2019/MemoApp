@@ -3,91 +3,93 @@ package app.memo;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.memo.dao.MemoDao;
+import app.memo.dao.MemoRepository;
 import app.memo.dto.MemoRequest;
 import app.memo.dto.MemoResponse;
 import app.memo.entity.MemoEntity;
 
 public class MemoService {
-    private final MemoDao memoDao;
 
-    public MemoService(MemoDao memoDao) {
-        this.memoDao = memoDao;
-    }
+	private final MemoRepository memoRepository;
 
-    public List<MemoResponse> findAll() {
-        List<MemoEntity> entities = memoDao.findAll();
-        List<MemoResponse> responses = new ArrayList<>();
+	public MemoService(MemoRepository memoRepository) {
+		this.memoRepository = memoRepository;
+	}
 
-        for (MemoEntity entity : entities) {
-            responses.add(toResponse(entity));
-        }
+	public List<MemoResponse> findAll() {
+		List<MemoEntity> entities = memoRepository.findAll();
+		List<MemoResponse> responses = new ArrayList<>();
 
-        return responses;
-    }
+		for (MemoEntity entity : entities) {
+			responses.add(toResponse(entity));
+		}
 
-    public MemoResponse findById(int id) {
-        MemoEntity entity = memoDao.findById(id);
+		return responses;
+	}
 
-        if (entity == null) {
-            return null;
-        }
+	public MemoResponse findById(int id) {
+		MemoEntity entity = memoRepository.findById(id);
 
-        return toResponse(entity);
-    }
+		if (entity == null) {
+			return null;
+		}
 
-    public MemoResponse addMemo(MemoRequest request) {
-        String content = getContent(request);
+		return toResponse(entity);
+	}
 
-        MemoEntity entity = new MemoEntity(0, content);
-        memoDao.insert(entity);
+	public MemoResponse addMemo(MemoRequest request) {
+		String content = getContent(request);
 
-        List<MemoEntity> entities = memoDao.findAll();
+		MemoEntity entity = new MemoEntity(0, content);
+		memoRepository.insert(entity);
 
-        if (entities.isEmpty()) {
-            return null;
-        }
+		List<MemoEntity> entities = memoRepository.findAll();
 
-        return toResponse(entities.get(0));
-    }
+		if (entities.isEmpty()) {
+			return null;
+		}
 
-    public boolean updateMemo(int id, MemoRequest request) {
-        MemoEntity existing = memoDao.findById(id);
+		return toResponse(entities.get(0));
+	}
 
-        if (existing == null) {
-            return false;
-        }
+	public boolean updateMemo(int id, MemoRequest request) {
+		MemoEntity existing = memoRepository.findById(id);
 
-        String content = getContent(request);
-        MemoEntity entity = new MemoEntity(id, content);
+		if (existing == null) {
+			return false;
+		}
 
-        int count = memoDao.update(entity);
-        return count > 0;
-    }
+		String content = getContent(request);
 
-    public boolean deleteMemo(int id) {
-        int count = memoDao.deleteById(id);
-        return count > 0;
-    }
+		MemoEntity entity = new MemoEntity(id, content);
+		int count = memoRepository.update(entity);
 
-    private MemoResponse toResponse(MemoEntity entity) {
-        return new MemoResponse(
-                entity.getId(),
-                entity.getContent()
-        );
-    }
+		return count > 0;
+	}
 
-    private String getContent(MemoRequest request) {
-        if (request == null || request.getContent() == null) {
-            throw new IllegalArgumentException("content is required");
-        }
+	public boolean deleteMemo(int id) {
+		int count = memoRepository.deleteById(id);
 
-        String content = request.getContent().trim();
+		return count > 0;
+	}
 
-        if (content.length() == 0) {
-            throw new IllegalArgumentException("content is required");
-        }
+	private MemoResponse toResponse(MemoEntity entity) {
+		return new MemoResponse(
+				entity.getId(),
+				entity.getContent());
+	}
 
-        return content;
-    }
+	private String getContent(MemoRequest request) {
+		if (request == null || request.getContent() == null) {
+			throw new IllegalArgumentException("content is required");
+		}
+
+		String content = request.getContent().trim();
+
+		if (content.length() == 0) {
+			throw new IllegalArgumentException("content is required");
+		}
+
+		return content;
+	}
 }
