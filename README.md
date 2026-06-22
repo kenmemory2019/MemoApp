@@ -130,11 +130,11 @@ MemoApp
 	以下の外部ライブラリを各公式サイトから取得してください。
 	例として今回はTomcat本体の最上層を作業ディレクトリ「Tomcat\」として進めます。
 - MyBatis 3.5.19
-mybatis.jarのみ使用。
+	mybatis.jarのみ使用。
 - Oracle JDBC Driver
-ojdbc.jarのみ使用。
+	ojdbc.jarのみ使用。
 - Apache Tomcat 10
-Servletの実行環境として使用。コンパイル時にはTomcatに含まれる servlet-api.jar を参照。
+	Servletの実行環境として使用。コンパイル時にはTomcatに含まれる servlet-api.jar を参照。
 
 ###### （２）コンパイル
 	サーバーのソースファイルをコンパイルします。その際に以下をクラスパスに指定します。
