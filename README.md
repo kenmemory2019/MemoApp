@@ -134,9 +134,11 @@ MemoApp
 - Apache Tomcat 10（Servletの実行環境として使用。コンパイル時にはservlet-api.jar を参照）
 
 ###### （２）コンパイル
-	サーバーのソースファイルをコンパイルします。その際に「mybatis.jar」「ojdbc.jar」「servlet-api.jar」をクラスパスに指定します。
+	サーバーのソースファイルをコンパイルします。
+	その際に「mybatis.jar」「ojdbc.jar」「servlet-api.jar」をクラスパスに指定します。
 	以下は作業ディレクトリ「Tomcat\」にてコンパイルした場合の例です。
-	３．（２）での作業のために、出力先を「webapps\MemoApp\WEB-INF\classes\」へ、MyBatisとOracle JDBC Driverのjarファイルを「webapps\MemoApp\WEB-INF\lib\」へ配置しています。
+	３．（２）での作業のために、出力先を「webapps\MemoApp\WEB-INF\classes\」へ、
+	MyBatisとOracle JDBC Driverのjarファイルを「webapps\MemoApp\WEB-INF\lib\」へ配置しています。
 ```text
 	dir /s /b src\*.java > sources.txt && javac -cp "lib\servlet-api.jar;webapps\MemoApp\WEB-INF\lib\*" -d webapps\MemoApp\WEB-INF\classes @sources.txt
 ```
