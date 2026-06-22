@@ -139,11 +139,10 @@ MemoApp
 - ojdbc.jar
 - servlet-api.jar
 
-	以下は作業ディレクトリ「Tomcat\」にてコンパイルした場合の例です。
+	以下は作業ディレクトリ「Tomcat\」にてコンパイルした場合の例です。３．（２）での作業のために、出力先を「webapps\MemoApp\WEB-INF\classes\」へ、MyBatisとOracle JDBC Driverのjarファイルを「webapps\MemoApp\WEB-INF\lib\」へ配置しています。
 ```text
 	dir /s /b src\*.java > sources.txt && javac -cp "lib\servlet-api.jar;webapps\MemoApp\WEB-INF\lib\*" -d webapps\MemoApp\WEB-INF\classes @sources.txt
 ```
-	※３．（２）での作業のために、出力先を「webapps\MemoApp\WEB-INF\classes\」へ、MyBatisとOracle JDBC Driverのjarファイルを「webapps\MemoApp\WEB-INF\lib\」へ配置しています。
 
 #### ３．クライアントの準備
 ###### （１）接続先設定
