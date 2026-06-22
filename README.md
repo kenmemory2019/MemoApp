@@ -45,13 +45,13 @@ flowchart TD
 ```
 
 - 【フロントエンド①】Windows上のC#クライアントで操作します。ServletへHTTPリクエスト（メモの取得・追加・更新・削除）を送信しています。
-接続先は`api-url.txt` から読み込まれます。
+  接続先は`api-url.txt` から読み込まれます。
 - 【フロントエンド②】Windows以外の端末でもブラウザを利用してメモを閲覧できます。HTML画面内のJavaScriptでServletへHTTPリクエスト（メモ取得）を送信しています。
 - 【Webアプリ基盤】Apache Tomcat 10上でServletとしてHTTPリクエストを受け付けます。その際のアクセスログをコンソール画面で確認できます。
-- 【バックエンド】Javaは、Tomcat上で動作するサーバー側処理として、HTTPリクエストの内容に応じてメモの取得・追加・更新・削除を行います。保存先はポリモーフィズムを利用した設計（MemoRepositoryインターフェース）で切り替え、通常はMyBatis経由でOracle Databaseへ保存し（MyBatisMemoRepositoryクラス）、DB接続不可時はJVMメモリ上に保存します（InMemoryMemoRepositoryクラス）。
+- 【バックエンド】Javaは、Tomcat上で動作するサーバー側処理として、HTTPリクエストの内容に応じてメモの取得・追加・更新・削除を行います。  保存先はポリモーフィズムを利用した設計（MemoRepositoryインターフェース）で切り替え、通常はMyBatis経由でOracle Databaseへ保存し（MyBatisMemoRepositoryクラス）、DB接続不可時はJVMメモリ上に保存します（InMemoryMemoRepositoryクラス）。
 - 【DBアクセス】MyBatis 3.5.19を通してJavaからDBへ接続情報やSQLを送ります。
-接続情報は「mybatis-config.xml」から読み込まれます。
-SQLは「MemoMapper.xml」から動的に読み込まれます。
+  接続情報は「mybatis-config.xml」から読み込まれます。
+  SQLは「MemoMapper.xml」から動的に読み込まれます。
 - 【JDBCドライバ】Oracle JDBC Driverを通してサーバーはデータベースに接続されます。
 - 【データベース】Oracle Databaseを利用します。「memos」テーブルへメモデータが保存されます。
 
